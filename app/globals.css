@@ -48,6 +48,12 @@ body {
   letter-spacing: 0;
 }
 
+.task-card {
+  content-visibility: auto;
+  contain: layout paint style;
+  contain-intrinsic-size: auto 260px;
+}
+
 :root.dark body {
   background-color: #080a10;
   background-image:
@@ -252,6 +258,52 @@ body {
   .day-complete aside,
   .day-complete nav {
     --complete-angle: 305deg;
+  }
+}
+
+@media (max-width: 767px) {
+  :root.dark body {
+    background-attachment: scroll;
+    background-size: 620px 430px, 480px 380px, cover, 64px 64px;
+  }
+
+  :root.dark body::before {
+    display: none;
+  }
+
+  .day-complete::before {
+    animation: none;
+    opacity: 0.24;
+  }
+
+  .day-complete header,
+  .day-complete section,
+  .day-complete article,
+  .day-complete aside,
+  .day-complete nav {
+    --complete-angle: 305deg;
+    animation: none;
+    filter: none;
+    will-change: auto;
+    box-shadow:
+      0 0 0 1px rgba(146, 164, 87, 0.28),
+      0 0 22px rgba(132, 154, 72, 0.3),
+      0 0 44px rgba(132, 154, 72, 0.16);
+  }
+
+  :root.dark .day-complete header,
+  :root.dark .day-complete section,
+  :root.dark .day-complete article,
+  :root.dark .day-complete aside,
+  :root.dark .day-complete nav {
+    box-shadow:
+      0 0 0 1px rgba(164, 187, 91, 0.3),
+      0 0 24px rgba(145, 174, 75, 0.34),
+      0 0 48px rgba(145, 174, 75, 0.18);
+  }
+
+  .backdrop-blur {
+    backdrop-filter: none;
   }
 }
 

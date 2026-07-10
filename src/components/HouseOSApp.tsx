@@ -612,29 +612,40 @@ export function HouseOSApp() {
         </aside>
 
         <section className="min-w-0 flex-1">
-          <AppHeader
-            date={selectedDate}
-            tasks={selectedTasks}
-            settings={data.settings}
-            dayLog={selectedLog}
-            onPreviousDay={goToPreviousDay}
-            onCloseDay={() => closeDay(selectedDate)}
-            onPrepareTomorrow={() => prepareTomorrow(selectedDate)}
-            onToggleTheme={() =>
-              updateSettings({ theme: data.settings.theme === "dark" ? "light" : "dark" })
-            }
-          />
+          {activeView === "calendar" && (
+            <AppHeader
+              date={selectedDate}
+              tasks={selectedTasks}
+              settings={data.settings}
+              dayLog={selectedLog}
+              onPreviousDay={goToPreviousDay}
+              onCloseDay={() => closeDay(selectedDate)}
+              onPrepareTomorrow={() => prepareTomorrow(selectedDate)}
+              onToggleTheme={() =>
+                updateSettings({ theme: data.settings.theme === "dark" ? "light" : "dark" })
+              }
+            />
+          )}
           {view}
         </section>
       </div>
 
       <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--line)] bg-[var(--surface)]/96 px-2 py-2 shadow-soft backdrop-blur safe-bottom lg:hidden">
-        <div className="mx-auto max-w-xl">
-          <UserNavFilter
-            value={ownerFilter}
-            onChange={setOwnerFilter}
-            settings={data.settings}
-            compact
+        <div className="mx-auto flex max-w-xl items-end gap-2">
+          <div className="min-w-0 flex-1">
+            <UserNavFilter
+              value={ownerFilter}
+              onChange={setOwnerFilter}
+              settings={data.settings}
+              compact
+            />
+          </div>
+          <IconButton
+            label={data.settings.theme === "dark" ? "Cambiar a tema claro" : "Cambiar a tema oscuro"}
+            onClick={() =>
+              updateSettings({ theme: data.settings.theme === "dark" ? "light" : "dark" })
+            }
+            icon={data.settings.theme === "dark" ? Sun : Moon}
           />
         </div>
         <div className="mx-auto mt-2 grid max-w-xl grid-cols-5 gap-1">
@@ -1392,7 +1403,7 @@ function TaskCard({
   return (
     <article
       className={[
-        "rounded-lg border p-3 transition",
+        "task-card rounded-lg border p-3 transition",
         status.tone,
         late ? "border-l-4 border-l-signal" : ""
       ].join(" ")}
